@@ -1,6 +1,7 @@
 ---
 title: BLAST using Sequence Server
 author: Lucas M. Taniguti
+comments: true
 date: 2021-10-06 11:33:00 +0800
 categories: [Bioinformatics, Sequence Analysis]
 tags: [BLAST]
@@ -74,3 +75,29 @@ docker run --rm -it -p 4567:4567 -v /tmp/blast/my-database:/db \
 And that is it. Now you have a BLAST Sequence Server running under you [http://127.0.0.1:4567](http://127.0.0.1:4567) address.
 
 Every time you want to add a new sequence to your database, you can execute step 4 for it.
+
+
+{% if page.comments %}
+
+## Comments
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    var disqus_config = function () {
+    this.page.url = '{{ page.url | absolute_url }}';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = '{{ page.url | absolute_url }}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://lmtani.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+{% endif %}
