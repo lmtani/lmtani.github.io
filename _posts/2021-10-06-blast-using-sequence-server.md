@@ -37,10 +37,10 @@ In the [oficial documentation](https://sequenceserver.com/) they show how to ins
 
 Sequence Server developers distribute their container images through DockerHub. So in the following code snippet, we're going to:
 
-1. Create a directory to store your FASTA sequences
-2. Download a sample genome sequence just to get it running
-3. Decompress it and move it to the above-created directory
-4. Run `makeblastdb` to create the database for this sequence
+1. Create a directory to store your FASTA sequences.
+2. Download a sample genome sequence just to get it running.
+3. Decompress it and move it to the above-created directory.
+4. Run `makeblastdb` to create a nucleotide database for this sequence.
 5. Run SequenceServer.
 
 
@@ -75,6 +75,8 @@ docker run --rm -it -p 4567:4567 -v /tmp/blast/my-database:/db \
 And that is it. Now you have a BLAST Sequence Server running under you [http://127.0.0.1:4567](http://127.0.0.1:4567) address.
 
 Every time you want to add a new sequence to your database, you can execute step 4 for it.
+
+> Note that if you want to make a protein database you'll need to change the `-dbtype`, from nucl to prot.
 
 
 {% if page.comments %}
