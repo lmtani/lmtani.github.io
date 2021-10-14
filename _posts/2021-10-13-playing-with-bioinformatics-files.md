@@ -24,5 +24,6 @@ In this post I'll guide you throught three different file format, always paying 
 1. picard - convert FASTQ <-> uBAM
 1. bwa - align reads to genome
 1. samtools - convert SAM <-> BAM <-> CRAM
+1. crumble
 
 <script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fepi2me-labs%2Fwf-artic%2Fblob%2Ff7c1309f1802d18ccf57ad4b861b7e94bb461bcd%2Fenvironment.yaml%23L8-L9&style=zenburn&showLineNumbers=on&showFileMeta=on&showCopy=on"></script>
