@@ -1,0 +1,10 @@
+name: bioinformatics-files
+channels:
+    - conda-forge
+    - defaults
+    - bioconda
+dependencies:
+    - picard=2.26.3
+    - bwa=0.7.17
+    - samtools=1.13
+    - crumble 0.8.3
