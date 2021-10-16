@@ -19,11 +19,11 @@ In this post I'll guide you throught three different file format, always paying 
 4. Align it to a reference genome to create a BAM file.
 5. Extract reads back to paired-end FASTQ format. It shoud have the same content from our starting files.
 
-## Requirements
+## Tools
 
-1. picard - convert FASTQ <-> uBAM
-1. bwa - align reads to genome
-1. samtools - convert SAM <-> BAM <-> CRAM
-1. crumble
+1. picard - To convert FASTQ <-> uBAM and SAM <-> BAM <-> CRAM
+1. samtools - To create .fai index
+1. bwa - To align reads to genome
+1. crumble - To try lossy compression of alignment
 
 <script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fepi2me-labs%2Fwf-artic%2Fblob%2Ff7c1309f1802d18ccf57ad4b861b7e94bb461bcd%2Fenvironment.yaml%23L8-L9&style=zenburn&showLineNumbers=on&showFileMeta=on&showCopy=on"></script>

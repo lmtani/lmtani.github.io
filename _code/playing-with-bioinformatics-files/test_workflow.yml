@@ -1,0 +1,14 @@
+- name: Run playing-with-bioinformatics example
+  command: bash _code/playing-with-bioinformatics-files/playing-with-bioinformatics-files.sh
+  files:
+    - path: STEP_3/algn-from-pairs.bam.stats
+      contains:
+        - "0.99651"
+    - path: STEP_3/algn-from-interleaved.bam.stats
+      contains:
+        - "0.99651"
+    - path: STEP_4/alignment_nv9_lossnames.cram
+    - path: recovered.txt
+      md5sum: 9baefaeb4ff8d9e7baa54fb8e7bc561f
+    - path: original.txt
+      md5sum: 9baefaeb4ff8d9e7baa54fb8e7bc561f
