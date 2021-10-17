@@ -4,7 +4,7 @@ author: Lucas M. Taniguti
 comments: true
 date: 2021-10-15 11:33:00 +0800
 categories: [Bioinformatics, File formats]
-tags: [BLAST]
+tags: [alignment, bwa, picard, crumble, samtools]
 ---
 
 Bioinformatics is known to have plenty of file formats. Every time a discussion about file formats starts, I remember [this comic](http://www.niso.org/sites/default/files/inline-images/How%20Standards%20Proliferate%20%281%29.png).
