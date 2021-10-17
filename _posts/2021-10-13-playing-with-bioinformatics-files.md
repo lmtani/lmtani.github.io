@@ -71,4 +71,59 @@ Here is how to have it:
 
 ### The interleaved FASTQ format
 
+This one is not as popular as the others, but I'll mention here just in case you see it out there. The two reads (R1 and R2) are together in the same file. The origin of each read is described in its name. Reads from R1 are marked as /1 and from R2 as /2.
+
 <script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Flmtani%2Flmtani.github.io%2Fblob%2Fwip-illumina-format-patterns%2F_code%2Fplaying-with-bioinformatics-files%2Fplaying-with-bioinformatics-files.sh%23L40-L46&style=zenburn&showLineNumbers=on&showFileMeta=on&showCopy=on"></script>
+
+## Align to reference sequence
+
+This step usually is the most intense in genotyping workflows. This step is responsible for identifying where is the best region to align each of your NGS reads. There are a lot of complexity in this step but it's out of the scope of this post. For now, you can consider best region as the interval were your read and the reference sequence are more similar.
+
+For the sake of comparison we are going to align the pair of FASTQs (R1 and R2) and also de interleaved one.
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Flmtani%2Flmtani.github.io%2Fblob%2Fwip-illumina-format-patterns%2F_code%2Fplaying-with-bioinformatics-files%2Fplaying-with-bioinformatics-files.sh%23L52-L61&style=zenburn&showLineNumbers=on&showFileMeta=on&showCopy=on"></script>
+
+It creates two alignment files, named BAM. Remember that whenever you see SAM/BAM/CRAM files they essentialy store the same information: how your reads aligns to the reference sequence. SAM is the less compressed and CRAM is the smaller, also you'll alse need to use your reference sequence to restore information from this last one.
+
+Now that we have our BAM files we can calculate some statistics using Picard. The goal in using this is to see that both files contains essentially the same data. Minor differences are expected.
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Flmtani%2Flmtani.github.io%2Fblob%2Fwip-illumina-format-patterns%2F_code%2Fplaying-with-bioinformatics-files%2Fplaying-with-bioinformatics-files.sh%23L63-L68&style=zenburn&showLineNumbers=on&showFileMeta=on&showCopy=on"></script>
+
+See that both stats have very similar metrics. From now on we are going to use only the BAM obtained from the alignment of the interleaved FASTQ.
+
+## Storing as CRAM file
+
+CRAM is the most compressed alignment format, and because of this it's usually the adopted form for long term storage. From what I see in human genome/exome data, it's about 1/3 of the equivalent BAM file.
+
+To create it:
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Flmtani%2Flmtani.github.io%2Fblob%2Fwip-illumina-format-patterns%2F_code%2Fplaying-with-bioinformatics-files%2Fplaying-with-bioinformatics-files.sh%23L70-L73&style=zenburn&showLineNumbers=on&showFileMeta=on&showCopy=on"></script>
+
+Remember: you will always need the reference sequence (FASTA) in order to decompress this format.
+
+### Example of lossy compression
+
+Because of the amount of data that today's sequencers can produce, the storage is a challenge. You can use local or cloud based systems but the problem remains the same.
+
+Crumble is a tool to perform controlled loss of information in order to improve the compression of alignments. Here we'll execute it with the most "agressive" setup to show how much smaller an alignment could be if we throw away some information.
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Flmtani%2Flmtani.github.io%2Fblob%2Fwip-illumina-format-patterns%2F_code%2Fplaying-with-bioinformatics-files%2Fplaying-with-bioinformatics-files.sh%23L75-L80&style=zenburn&showLineNumbers=on&showFileMeta=on&showCopy=on"></script>
+
+### Alignment file size comparison
+
+- SAM: XX
+- BAM: XXX
+- CRAM: XXX
+- Lossy CRAM: XX
+
+## Recover raw reads from alignment
+
+Remember that you aligned your reads into a reference sequence, and this alignment is stored as SAM/BAM/CRAM. So, if you don't have used any destructive parameter, you could retrieve the exactly same read information from the alignment. This is important because this way you could delete the original sequences, or at least put it in a coldline storage system if you prefer.
+
+> There are a lot of cloud storage categories where it's cheap to store, but you'll pay more if you need to retrieve the data.
+
+Here we compare the content of one read. Headers are different and because of this we need to compare the sequence and quality only.
+
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Flmtani%2Flmtani.github.io%2Fblob%2Fwip-illumina-format-patterns%2F_code%2Fplaying-with-bioinformatics-files%2Fplaying-with-bioinformatics-files.sh%23L82-L90&style=zenburn&showLineNumbers=on&showFileMeta=on&showCopy=on"></script>
+
+if you calculate the md5sum hash for this two files you'll see that they have the same content. You can also inspect it manually by opening in any text editor, or by using `cat` command.
